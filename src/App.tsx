@@ -1,12 +1,14 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { TasksList } from './components/TasksList'
 
 function App() {
 
+  const initialTaskList : string[] = JSON.parse(localStorage.getItem('taskslist') || '[]')
+
   const [task, setTask] = useState<string>("")
-  const [tasksList, setTasksList] = useState<string[]>([])
+  const [tasksList, setTasksList] = useState<string[]>(initialTaskList)
 
   const handleAddTask = () =>{
     if (task.trim() !== "") {
@@ -15,9 +17,13 @@ function App() {
     }
   }
 
-  const deleteTask = (index: number)=> {
+  const handleDeleteTask = (index: number)=> {
     setTasksList(tasksList=> tasksList.filter((_, i) => i !== index))
   }
+
+  useEffect(()=>{
+    localStorage.setItem('taskslist', JSON.stringify(tasksList))
+  }, [tasksList])
 
   return (
     <div className='container'>
@@ -27,7 +33,7 @@ function App() {
       value={task}
       onChange={(e) =>setTask(e.target.value)}/>
       <button className= 'newTask btnTask' onClick={handleAddTask}>Add task</button>
-      <TasksList tasksList={tasksList} deleteTask={deleteTask}/>
+      <TasksList tasksList={tasksList} handleDeleteTask={handleDeleteTask}/>
     </div>
   )
 }

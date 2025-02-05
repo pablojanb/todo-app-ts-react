@@ -2,14 +2,14 @@ import { toCapital } from "../utils/toCapital"
 
 type Task = {
     task: string
-    deleteTask: ()=>void
+    handleDeleteTask: ()=>void
 }
 
-export const Task = ({task, deleteTask}: Task)=>{
+export const Task = ({task, handleDeleteTask}: Task)=>{
     return (
         <div className="task">
             <span>{toCapital(task)}</span>
-            <button className="btnDelete" onClick={deleteTask}>Delete</button>
+            <button className="btnDelete" onClick={handleDeleteTask}>Delete</button>
         </div>
     )
 }
