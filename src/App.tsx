@@ -20,14 +20,15 @@ function App() {
   }
 
   return (
-    <>
-      <input type="text" 
+    <div className='container'>
+      <h1 className='title'>To Do List</h1>
+      <input className= 'newTask inputTask' type="text" 
       placeholder='New task'
       value={task}
       onChange={(e) =>setTask(e.target.value)}/>
-      <button onClick={handleAddTask}>Add task</button>
+      <button className= 'newTask btnTask' onClick={handleAddTask}>Add task</button>
       <TasksList tasksList={tasksList} deleteTask={deleteTask}/>
-    </>
+    </div>
   )
 }
 

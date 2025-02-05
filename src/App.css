@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #DDEB9D;
+}
+
+.container {
+    padding: 30px;
+    background-color: #143D60;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+}
+
+.title {
+    color: #DDEB9D;
+    font-size: 40px;
+}
+
+.newTask, .task{
+    width: 600px;
+    padding: 10px;
+    border: 2px solid #A0C878;
+    font-size: 20px;
+}
+
+.inputTask {
+    border: 2px solid #27667B;
+    background-color: #27667B;
+    color: #A0C878;
+}
+
+.inputTask:focus {
+    outline: none;
+    border: 2px solid #A0C878;
+}
+
+.inputTask::placeholder {
+    color: #A0C878;
+}
+
+.btnTask {
+    background-color: #A0C878;
+    color: #143D60;
+}
+
+.btnTask:hover, .btnDelete:hover {
+    background-color: #143D60;
+    color: #A0C878;
+}
+
+.tasksList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #DDEB9D;
+    color: #A0C878;
+}
+
+.btnDelete {
+    padding: 5px;
+    background-color: #A0C878;
+    color: #143D60;
+    font-size: 16px;
+    border: 1px solid #A0C878;
+}
