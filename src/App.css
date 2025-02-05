@@ -27,7 +27,8 @@ body {
 }
 
 .newTask, .task{
-    width: 600px;
+    width: 90%;
+    max-width: 600px;
     padding: 10px;
     border: 2px solid #A0C878;
     font-size: 20px;
@@ -53,7 +54,7 @@ body {
     color: #143D60;
 }
 
-.btnTask:hover, .btnDelete:hover {
+.btnTask:active, .btnDelete:active {
     background-color: #143D60;
     color: #A0C878;
 }
@@ -61,12 +62,15 @@ body {
 .tasksList {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
+    width: 100%;
 }
 
 .task {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border: 2px solid #DDEB9D;
     color: #A0C878;
     font-size: 23px;
@@ -78,4 +82,12 @@ body {
     color: #143D60;
     font-size: 16px;
     border: 1px solid #A0C878;
+    height: 30px;
+}
+
+@media only screen and (min-width: 769px) {
+    .btnTask:hover, .btnDelete:hover {
+        background-color: #143D60;
+        color: #A0C878;
+    }
 }
