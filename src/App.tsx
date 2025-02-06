@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import './App.css'
 import { TasksList } from './components/TasksList'
@@ -33,11 +32,22 @@ function App() {
     setTask(tasksList[taskEdit])
   }
   
-  const handleDeleteTask = (index: number)=> {
-    //TO DO add styles for delete
+  const handleDeleteTask = (index: number, id: string)=> {
     editTask && setEditTask(false)
     setTaskIndex(-1)
-    setTasksList(tasksList=> tasksList.filter((_, i) => i !== index))
+    
+    const taskToDelete = document.getElementById(id)
+    taskToDelete?.classList.add('animate__zoomOut')
+
+    setTimeout(()=>{
+      setTasksList(tasksList.filter((_, i) => i !== index))
+      const allTasks = document.querySelectorAll('.task')
+      allTasks.forEach(elem=>{
+        elem.classList.remove('animate__zoomIn')
+        elem.classList.remove('animate__zoomOut')
+      })
+    },350)
+
     setTaskCounter(prev=> prev - 1)
     setTask("")
   }
