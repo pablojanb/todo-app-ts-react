@@ -9,24 +9,40 @@ function App() {
 
   const [task, setTask] = useState<string>("")
   const [tasksList, setTasksList] = useState<string[]>(initialTaskList)
-  const [taskCounter, setTaskCounter] = useState(tasksList.length)
+  const [taskCounter, setTaskCounter] = useState<number>(tasksList.length)
+  const [editTask, setEditTask] = useState<boolean>(false)
+  const [taskIndex, setTaskIndex] = useState<number>(-1)
 
-  const handleAddTask = () =>{
-    if (task.trim() !== "") {
+  const handleAddTask = (taskIndex : number) =>{
+    editTask && setEditTask(false)
+    if (task.trim() === "") return
+    if (taskIndex > -1) {
+      tasksList[taskIndex] = task
+    } else {
       setTasksList(tasksList => [...tasksList, task])
       setTaskCounter(prev=> prev + 1)
-      setTask("")
     }
+    setTask("")
   }
 
+  const handleEdit = (index: number)=> {
+    setEditTask(true)
+    const taskEdit = tasksList.findIndex((_, i) => i === index)
+    setTaskIndex(taskEdit)
+    setTask(tasksList[taskEdit])
+  }
+  
   const handleDeleteTask = (index: number)=> {
+    editTask && setEditTask(false)
+    setTaskIndex(-1) 
     setTasksList(tasksList=> tasksList.filter((_, i) => i !== index))
     setTaskCounter(prev=> prev - 1)
+    setTask("")
   }
 
   useEffect(()=>{
     localStorage.setItem('taskslist', JSON.stringify(tasksList))
-  }, [tasksList])
+  }, [tasksList, task])
 
   return (
     <div className='container'>
@@ -35,8 +51,8 @@ function App() {
       placeholder='New task'
       value={task}
       onChange={(e) =>setTask(e.target.value)}/>
-      <button className= 'newTask btnTask' onClick={handleAddTask}>Add task</button>
-      <TasksList tasksList={tasksList} handleDeleteTask={handleDeleteTask}/>
+      <button className= 'newTask btnTask' onClick={()=>{handleAddTask(taskIndex)}}>{editTask ? 'Edit task' : 'Add task'}</button>
+      <TasksList tasksList={tasksList} handleDeleteTask={handleDeleteTask} handleEdit={handleEdit}/>
     </div>
   )
 }

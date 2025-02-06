@@ -52,9 +52,10 @@ body {
 .btnTask {
     background-color: #A0C878;
     color: #143D60;
+    transition: 0.3s;
 }
 
-.btnTask:active, .btnDelete:active {
+.btnTask:active, .btnDelete:active, .btnEdit:active {
     background-color: #143D60;
     color: #A0C878;
 }
@@ -76,17 +77,23 @@ body {
     font-size: 23px;
 }
 
-.btnDelete {
+.btnsTask {
+    display: flex;
+    gap: 20px;
+}
+
+.btnDelete, .btnEdit {
     padding: 5px;
     background-color: #A0C878;
     color: #143D60;
     font-size: 16px;
     border: 1px solid #A0C878;
     height: 30px;
+    transition: 0.3s;
 }
 
 @media only screen and (min-width: 769px) {
-    .btnTask:hover, .btnDelete:hover {
+    .btnTask:hover, .btnDelete:hover, .btnEdit:hover {
         background-color: #143D60;
         color: #A0C878;
     }
