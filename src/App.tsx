@@ -22,6 +22,7 @@ function App() {
       setTasksList(tasksList => [...tasksList, task])
       setTaskCounter(prev=> prev + 1)
     }
+    setTaskIndex(-1)
     setTask("")
   }
 
@@ -33,8 +34,9 @@ function App() {
   }
   
   const handleDeleteTask = (index: number)=> {
+    //TO DO add styles for delete
     editTask && setEditTask(false)
-    setTaskIndex(-1) 
+    setTaskIndex(-1)
     setTasksList(tasksList=> tasksList.filter((_, i) => i !== index))
     setTaskCounter(prev=> prev - 1)
     setTask("")
