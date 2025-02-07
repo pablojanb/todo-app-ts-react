@@ -26,6 +26,10 @@ function App() {
   }
 
   const handleEdit = (index: number)=> {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
     setEditTask(true)
     const taskEdit = tasksList.findIndex((_, i) => i === index)
     setTaskIndex(taskEdit)
@@ -48,7 +52,7 @@ function App() {
       })
     },350)
 
-    setTaskCounter(prev=> prev - 1)
+    taskCounter > 0 && setTaskCounter(prev=> prev - 1)
     setTask("")
   }
 
