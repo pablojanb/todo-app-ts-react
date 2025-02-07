@@ -23,6 +23,12 @@ function App() {
     }
     setTaskIndex(-1)
     setTask("")
+    setTimeout(()=>{
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+    })
+    }, 0)
   }
 
   const handleEdit = (index: number)=> {
@@ -56,6 +62,12 @@ function App() {
     setTask("")
   }
 
+  const handleClearAll = ()=>{
+    setTasksList([])
+    setTask("")
+    setTaskCounter(0)
+  }
+
   useEffect(()=>{
     localStorage.setItem('taskslist', JSON.stringify(tasksList))
   }, [tasksList, task])
@@ -67,7 +79,13 @@ function App() {
       placeholder='New task'
       value={task}
       onChange={(e) =>setTask(e.target.value)}/>
-      <button className= 'newTask btnTask' onClick={()=>{handleAddTask(taskIndex)}}>{editTask ? 'Edit task' : 'Add task'}</button>
+      <div className='btnContainer'>
+        <button className= 'newTask btnTask' onClick={()=>{handleAddTask(taskIndex)}}>{editTask ? 'Edit task' : 'Add task'}</button>
+        {
+          tasksList.length > 1 &&
+          <button className= 'newTask btnClear' onClick={handleClearAll}>Clear all</button>
+        }
+      </div>
       <TasksList tasksList={tasksList} handleDeleteTask={handleDeleteTask} handleEdit={handleEdit}/>
     </div>
   )

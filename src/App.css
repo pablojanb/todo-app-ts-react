@@ -26,8 +26,16 @@ body {
     font-size: 40px;
 }
 
+.btnContainer {
+    width: 100%;
+    max-width: 600px;
+    font-size: 20px;
+    display: flex;
+    gap: 10px;
+}
+
 .newTask, .task{
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     padding: 10px;
     border: 2px solid #A0C878;
@@ -55,9 +63,20 @@ body {
     transition: 0.3s;
 }
 
+.btnClear {
+    background-color: #143D60;
+    color: #A0C878;
+    transition: 0.3s;
+}
+
 .btnTask:active, .btnDelete:active, .btnEdit:active {
     background-color: #143D60;
     color: #A0C878;
+}
+
+.btnClear:active {
+    background-color: #A0C878;
+    color: #143D60;
 }
 
 .tasksList {
@@ -96,5 +115,10 @@ body {
     .btnTask:hover, .btnDelete:hover, .btnEdit:hover {
         background-color: #143D60;
         color: #A0C878;
+    }
+    
+    .btnClear:hover {
+        background-color: #A0C878;
+        color: #143D60;
     }
 }
