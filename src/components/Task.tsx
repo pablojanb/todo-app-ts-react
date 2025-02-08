@@ -3,7 +3,7 @@ import { toCapital } from "../utils/toCapital"
 type Task = {
     task: string
     handleDeleteTask: (id:string)=>void
-    handleEdit: ()=>void
+    handleEdit: (evt : React.MouseEvent<HTMLButtonElement>)=>void
     primaryTheme: boolean
 }
 

@@ -14,27 +14,35 @@ function App() {
   const [editTask, setEditTask] = useState<boolean>(false)
   const [taskIndex, setTaskIndex] = useState<number>(-1)
   const [primaryTheme, setPrimaryTheme] = useState<boolean>(initialPrimaryTheme)
+  const [positionEdit, setPositionEdit] = useState<number>()
 
   const handleAddTask = (taskIndex : number) =>{
-    editTask && setEditTask(false)
+    setEditTask(false)
     if (task.trim() === "") return
     if (taskIndex > -1) {
       tasksList[taskIndex] = task
+      setTimeout(()=>{
+        window.scrollTo({
+          top: positionEdit,
+          behavior: "smooth"
+      })
+      }, 0)
     } else {
       setTasksList(tasksList => [...tasksList, task])
       setTaskCounter(prev=> prev + 1)
+      setTimeout(()=>{
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth"
+      })
+      }, 0)
     }
     setTaskIndex(-1)
     setTask("")
-    setTimeout(()=>{
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-    })
-    }, 0)
   }
 
-  const handleEdit = (index: number)=> {
+  const handleEdit = (index: number, evt: React.MouseEvent<HTMLButtonElement>)=> {
+    setPositionEdit(evt.clientY + window.scrollY - 40)
     window.scrollTo({
       top: 0,
       behavior: "smooth"
@@ -71,7 +79,13 @@ function App() {
     setTasksList([])
     setTask("")
     setTaskCounter(0)
+    setEditTask(false)
   }
+
+  useEffect(()=>{
+    changeTheme(!primaryTheme, setPrimaryTheme)
+  }, [])
+
 
   useEffect(()=>{
     localStorage.setItem('taskslist', JSON.stringify(tasksList))
@@ -82,18 +96,12 @@ function App() {
   }, [primaryTheme])
 
   return (
-    <div className={primaryTheme ? 'container mainTheme-secondaryColor' : 'container secondaryTheme-secondaryColor'}>
-      <button className={primaryTheme ? "btnTheme mainTheme-btnTheme" : "btnTheme secondaryTheme-btnTheme"}
-      onClick={()=>{changeTheme(primaryTheme, setPrimaryTheme)}}></button>
-      <h1 className={primaryTheme ? 'title mainTheme-terciaryColor' : 'title secondaryTheme-terciaryColor'}>To Do List{taskCounter !== 0 && `(${taskCounter})`}</h1>
-      <input id="inputTask" className= {primaryTheme ? 'newTask inputTask mainTheme-mainBorder mainTheme-inputTask' : 'newTask inputTask mainTheme-mainBorder secondaryTheme-inputTask'}
-      type="text" 
-      placeholder='New task'
-      value={task}
-      onChange={(e) =>setTask(e.target.value)}/>
+    <div className='container mainTheme-secondaryColor'>
+      <button className="btnTheme mainTheme-btnTheme" onClick={()=>{changeTheme(primaryTheme, setPrimaryTheme)}}></button>
+      <h1 className='title mainTheme-terciaryColor'>To Do List{taskCounter !== 0 && `(${taskCounter})`}</h1>
+      <input id="inputTask" className='newTask inputTask mainTheme-mainBorder mainTheme-inputTask' type="text" placeholder='New task' value={task} onChange={(e) =>setTask(e.target.value)}/>
       <div className='btnContainer'>
-      <button className= {primaryTheme ? 'newTask btnTask mainTheme-mainBorder mainTheme-btnTask' : 'newTask btnTask secondaryTheme-mainBorder secondaryTheme-btnTask'}
-      onClick={()=>{handleAddTask(taskIndex)}}>{editTask ? 'Edit task' : 'Add task'}</button>
+      <button className='newTask btnTask mainTheme-mainBorder mainTheme-btnTask' onClick={()=>{handleAddTask(taskIndex)}}>{editTask ? 'Edit task' : 'Add task'}</button>
       {
         tasksList.length > 1 &&
         <button className= {primaryTheme? 'newTask btnClear mainTheme-mainBorder mainTheme-btnClear' : 'newTask btnClear secondaryTheme-mainBorder secondaryTheme-btnClear'}
